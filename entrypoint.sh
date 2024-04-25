@@ -17,7 +17,7 @@ if [ -z "$INPUT_INSTALLGOOGLEFONT" ]; then
   echo "No font family defined"
 else
   echo "Installing $INPUT_INSTALLGOOGLEFONT"
-  wget https://raw.githubusercontent.com/neverpanic/google-font-download/master/google-font-download -O google-font-download
+  curl -L https://raw.githubusercontent.com/neverpanic/google-font-download/master/google-font-download > google-font-download
   chmod +x google-font-download
   ./google-font-download -f ttf --url="https://fonts.google.com/?selection.family=$INPUT_INSTALLGOOGLEFONT"
   mkdir /usr/share/fonts/googlefonts
