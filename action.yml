@@ -17,6 +17,9 @@ inputs:
   installGoogleFont:
     description: "Google Font family to be installed"
     required: false
+  javaArgs:
+    description: "Java args to be passed to PlantUML"
+    required: false
 runs:
   using: "docker"
   image: "Dockerfile"

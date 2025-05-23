@@ -19,6 +19,7 @@ jobs:
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
           enableReviewComment: true
           installGoogleFont: Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i
+          javaArgs: -DPLANTUML_LIMIT_SIZE=8192
 ```
 
 You must set `actions/checkout` before this step, to get source codes.
@@ -50,3 +51,9 @@ required: false
 If set, the value will be use to download and install a font family from
 [google](https://fonts.google.com/). To be used in combination with `skinparam
 defaultFontName` and other FontName skin settings for plantuml.
+
+### javaArgs
+
+required: false
+
+Java arguments passed to plantuml jar.
