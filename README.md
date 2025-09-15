@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: generate and commit diagrams
-        uses: abekoh/commit-plantuml-action@1.0.3
+        uses: zaphiro-technologies/commit-plantuml-action@1.0.4
         with:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
