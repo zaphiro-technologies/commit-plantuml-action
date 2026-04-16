@@ -1,9 +1,9 @@
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV APT_OPTIONS="-o Acquire::By-Hash=force -o Acquire::Retries=3 -o Acquire::http::Timeout=20"
 
-RUN APT_OPTIONS="-o Acquire::By-Hash=force -o Acquire::Retries=3 -o Acquire::http::Timeout=20" \
-  && max_attempts=5 \
+RUN max_attempts=5 \
   && retry_delay=5 \
   && attempt=0 \
   && until [ "$attempt" -ge "$max_attempts" ]; do \
