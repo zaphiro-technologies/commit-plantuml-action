@@ -4,7 +4,7 @@ RUN max_attempts=5 \
   && retry_delay=5 \
   && attempt=0 \
   && until [ "$attempt" -ge "$max_attempts" ]; do \
-    if apk add --no-cache bash git curl graphviz openjdk17-jre fontconfig font-ipa ca-certificates; then \
+    if apk add --no-cache bash git curl grep graphviz openjdk17-jre fontconfig font-ipa ca-certificates; then \
       break; \
     fi; \
     attempt=$((attempt+1)); \
