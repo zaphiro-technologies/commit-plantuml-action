@@ -1,22 +1,15 @@
-FROM ubuntu:22.04
-
-ENV DEBIAN_FRONTEND=noninteractive
-ENV APT_OPTIONS="-o Acquire::By-Hash=force -o Acquire::Retries=3 -o Acquire::http::Timeout=20"
+FROM alpine:3.20
 
 RUN max_attempts=5 \
   && retry_delay=5 \
   && attempt=0 \
   && until [ "$attempt" -ge "$max_attempts" ]; do \
-    if apt-get $APT_OPTIONS update; then \
-      break; \
-    fi; \
+    apk add --no-cache bash git curl graphviz openjdk17-jre fontconfig font-ipa ca-certificates && break; \
     attempt=$((attempt+1)); \
-    rm -rf /var/lib/apt/lists/*; \
     sleep "$retry_delay"; \
   done \
-  && if [ "$attempt" -ge "$max_attempts" ]; then echo "Failed to update apt package indexes after ${max_attempts} attempts (check network/mirror availability)"; exit 1; fi \
-  && apt-get $APT_OPTIONS install -y --no-install-recommends fonts-ipafont graphviz openjdk-17-jre git curl \
-  && rm -rf /var/lib/apt/lists/*
+  && if [ "$attempt" -ge "$max_attempts" ]; then echo "Failed to install Alpine packages after ${max_attempts} attempts (check network/mirror availability)"; exit 1; fi \
+  && update-ca-certificates
 RUN curl --fail --silent --show-error --location --retry 5 --retry-connrefused --max-time 120 https://github.com/plantuml/plantuml/releases/download/v1.2025.7/plantuml-1.2025.7.jar > /plantuml.jar \
   || { echo "Failed to download plantuml.jar after 5 retries from https://github.com/plantuml/plantuml/releases/download/v1.2025.7/plantuml-1.2025.7.jar"; exit 1; }
 
